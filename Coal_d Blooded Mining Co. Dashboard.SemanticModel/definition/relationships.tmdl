@@ -1,0 +1,45 @@
+relationship AutoDetected_817f9e38-b269-4986-9c00-e50dba702b6b
+	fromColumn: Fact_invoices.ClientId
+	toColumn: Dim_clients.ClientId
+
+relationship AutoDetected_306fcceb-33e2-49a5-bad6-44d2817270cb
+	fromColumn: Fact_shifts.EmployeeId
+	toColumn: Dim_employees.EmployeeId
+
+relationship AutoDetected_44df80e6-92d6-4f53-b937-8ab4414ee0b7
+	fromColumn: Fact_ore_volumes.EquipmentId
+	toColumn: Dim_equipment.EquipmentId
+
+relationship AutoDetected_9ce968c8-2157-45e9-8764-c552366396ce
+	isActive: false
+	fromColumn: Dim_equipment.SiteId
+	toColumn: Dim_sites.SiteId
+
+relationship AutoDetected_09eb992c-a6ed-4b6b-994f-d3f47dee4fbc
+	fromColumn: Fact_ore_volumes.SiteId
+	toColumn: Dim_sites.SiteId
+
+relationship AutoDetected_0cf1c914-393c-4a43-b4f2-3a855f44cb6c
+	fromColumn: Fact_shifts.SiteId
+	toColumn: Dim_sites.SiteId
+
+relationship d38d97e9-c0b1-a614-888d-7580d3909455
+	fromColumn: Fact_ore_volumes.ExtractionDate
+	toColumn: Dim_dates.Date
+
+relationship 154e93dc-71d3-e9d2-8073-c1450178e067
+	fromColumn: Fact_invoices.InvoiceDate
+	toColumn: Dim_dates.Date
+
+relationship f2561ad1-36b4-8f12-7d6f-2b4fdd7924f0
+	fromColumn: Fact_shifts.ShiftStartedAt
+	toColumn: Dim_times.Time
+
+relationship 624c96c6-4f60-4263-6255-ac862ddaaf55
+	fromColumn: Dim_times.Date
+	toColumn: Dim_dates.Date
+
+relationship 1b3a205d-383b-6313-e179-b27d196f5e7f
+	fromColumn: Fact_invoices.ExchangeKey
+	toColumn: Dim_ExchangeRates.ExchangeKey
+

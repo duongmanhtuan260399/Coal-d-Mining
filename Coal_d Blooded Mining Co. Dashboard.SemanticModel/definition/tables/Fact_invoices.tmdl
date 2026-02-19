@@ -1,0 +1,140 @@
+table Fact_invoices
+	lineageTag: a10bd81a-3fbe-49d1-82e0-af7277acb7ac
+
+	column InvoiceId
+		dataType: string
+		lineageTag: d981f2be-629e-40a0-96d3-58a9d3db0976
+		summarizeBy: none
+		sourceColumn: InvoiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c51bf720-11f7-4487-b20e-2886b9b51609
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DueDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 640df616-49b5-40f5-8ad1-4382fe626d86
+		summarizeBy: none
+		sourceColumn: DueDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PaymentTerms
+		dataType: string
+		lineageTag: f966128d-63b5-45fe-a2c4-2ad548e80895
+		summarizeBy: none
+		sourceColumn: PaymentTerms
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ace68e06-9230-4ad3-ae82-5e61c8b95c23
+		summarizeBy: none
+		sourceColumn: PaymentDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PaymentStatus
+		dataType: string
+		lineageTag: f722d765-147c-4a74-a92d-925bb23b02e4
+		summarizeBy: none
+		sourceColumn: PaymentStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientId
+		dataType: string
+		lineageTag: af40b757-c8cb-48fe-aab9-b4d3d411d1a5
+		summarizeBy: none
+		sourceColumn: ClientId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OreType
+		dataType: string
+		lineageTag: 536675a2-fa0a-40c4-9f83-2bfa5783d87c
+		summarizeBy: none
+		sourceColumn: OreType
+
+		annotation SummarizationSetBy = Automatic
+
+	column OreGrade
+		dataType: string
+		lineageTag: 286d517e-450f-44bc-921d-d2c9a9238578
+		summarizeBy: none
+		sourceColumn: OreGrade
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuantityTonnes
+		dataType: int64
+		formatString: 0
+		lineageTag: 020e11f0-9c65-4c35-b7b4-8ac9808b9b0f
+		summarizeBy: sum
+		sourceColumn: QuantityTonnes
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: 812f09a9-0d83-439b-9728-55690ee6530a
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: 971a0e68-1990-4bd5-8121-6455a2638f32
+		summarizeBy: sum
+		sourceColumn: InvoiceAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyCode
+		dataType: string
+		lineageTag: 51d25e56-2239-4683-8e8a-e1da383373c3
+		summarizeBy: none
+		sourceColumn: CurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExchangeKey = Fact_invoices[InvoiceDate]&Fact_invoices[CurrencyCode]
+		lineageTag: 46470ee6-5046-4199-b12c-e294a81fbcf0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_invoices = m
+		mode: import
+		queryGroup: Facts
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "invoices.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"InvoiceId", type text}, {"InvoiceDate", type date}, {"DueDate", type date}, {"PaymentTerms", type text}, {"PaymentDate", type date}, {"PaymentStatus", type text}, {"ClientId", type text}, {"OreType", type text}, {"OreGrade", type text}, {"QuantityTonnes", Int64.Type}, {"UnitPrice", Int64.Type}, {"InvoiceAmount", Int64.Type}, {"CurrencyCode", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

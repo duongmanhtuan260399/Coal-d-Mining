@@ -1,0 +1,94 @@
+table Fact_ore_volumes
+	lineageTag: 14461c67-28bf-4527-99ac-f180519549d6
+
+	column ExtractionId
+		dataType: string
+		lineageTag: 0fa9bea4-3efa-498c-babb-6c55cf255de2
+		summarizeBy: none
+		sourceColumn: ExtractionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteId
+		dataType: string
+		lineageTag: 904e590f-bc99-4766-8c47-555e11905c88
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OreType
+		dataType: string
+		lineageTag: 5b5d32ef-fced-4453-97bb-a2beb2bd67cb
+		summarizeBy: none
+		sourceColumn: OreType
+
+		annotation SummarizationSetBy = Automatic
+
+	column OreGrade
+		dataType: string
+		lineageTag: 1dbae577-fb17-4679-b638-57f402771008
+		summarizeBy: none
+		sourceColumn: OreGrade
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractionDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7cc30b16-7f76-4e91-8ae7-b63b26da1161
+		summarizeBy: none
+		sourceColumn: ExtractionDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ShiftType
+		dataType: string
+		lineageTag: b4ca872f-3481-4f26-8696-d6da876f1395
+		summarizeBy: none
+		sourceColumn: ShiftType
+
+		annotation SummarizationSetBy = Automatic
+
+	column EquipmentId
+		dataType: string
+		lineageTag: c79637e1-132d-4fa8-8c11-8c8f0d309e2a
+		summarizeBy: none
+		sourceColumn: EquipmentId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuantityTonnes
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b635770-8dfe-4c3c-96c6-1b4b447b85ab
+		summarizeBy: sum
+		sourceColumn: QuantityTonnes
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractionMethod
+		dataType: string
+		lineageTag: f96f32c7-138c-4a95-b033-eb67a7041b8c
+		summarizeBy: none
+		sourceColumn: ExtractionMethod
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_ore_volumes = m
+		mode: import
+		queryGroup: Facts
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "ore_volumes.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ExtractionId", type text}, {"SiteId", type text}, {"OreType", type text}, {"OreGrade", type text}, {"ExtractionDate", type date}, {"ShiftType", type text}, {"EquipmentId", type text}, {"QuantityTonnes", Int64.Type}, {"ExtractionMethod", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

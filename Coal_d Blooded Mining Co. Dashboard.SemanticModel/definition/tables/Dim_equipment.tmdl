@@ -1,0 +1,107 @@
+table Dim_equipment
+	lineageTag: 1e1b9cb2-8f40-4f29-be39-6d527a973ae7
+
+	column EquipmentId
+		dataType: string
+		lineageTag: b6e0bdde-3649-4256-bbd7-3e5d8a7c8e2f
+		summarizeBy: none
+		sourceColumn: EquipmentId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EquipmentType
+		dataType: string
+		lineageTag: a9747bc9-7f15-452d-a69e-a8f8c678dbb5
+		summarizeBy: none
+		sourceColumn: EquipmentType
+
+		annotation SummarizationSetBy = Automatic
+
+	column EquipmentName
+		dataType: string
+		lineageTag: ffa0e51c-f22b-419a-ab52-cb8f2992b4a2
+		summarizeBy: none
+		sourceColumn: EquipmentName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		dataType: string
+		lineageTag: a32cbdcb-38d7-4512-9a95-7725632dd2b1
+		summarizeBy: none
+		sourceColumn: Manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteId
+		dataType: string
+		lineageTag: 2645e56a-891b-4c38-a23a-74f2367f5780
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 4d69c7c5-d37f-437d-a6f0-a47ecd6d30b1
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column FuelType
+		dataType: string
+		lineageTag: 89e7b308-dffb-46d1-a382-180d41c1c02a
+		summarizeBy: none
+		sourceColumn: FuelType
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstCommissionedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 59b98f0d-cff6-4203-b039-468ec79a1ff4
+		summarizeBy: none
+		sourceColumn: FirstCommissionedDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastMaintenanceDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b4f296d8-34f5-4722-847a-f2681a52564e
+		summarizeBy: none
+		sourceColumn: LastMaintenanceDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column NextMaintenanceDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 86c4e1ce-42f9-4f40-88c0-780599563e8d
+		summarizeBy: none
+		sourceColumn: NextMaintenanceDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Dim_equipment = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "equipment.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EquipmentId", type text}, {"EquipmentType", type text}, {"EquipmentName", type text}, {"Manufacturer", type text}, {"SiteId", type text}, {"Status", type text}, {"FuelType", type text}, {"FirstCommissionedDate", type date}, {"LastMaintenanceDate", type date}, {"NextMaintenanceDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

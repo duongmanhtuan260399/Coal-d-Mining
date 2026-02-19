@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Coal_d Blooded Mining Co. Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "dba0613f-3b5a-4ece-a202-656c3bb0ba23"
+  }
+}

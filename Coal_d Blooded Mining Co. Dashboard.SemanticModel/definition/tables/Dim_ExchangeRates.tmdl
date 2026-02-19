@@ -1,0 +1,80 @@
+table Dim_ExchangeRates
+	lineageTag: db2e7d38-da4f-496c-b0d2-9c259a9b7427
+
+	column Currency
+		dataType: string
+		lineageTag: 378653a7-1879-4e40-94fa-ea54c15f89f3
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column RateDate
+		dataType: string
+		lineageTag: 5103f402-401b-4d46-b020-f73e01bb1628
+		summarizeBy: none
+		sourceColumn: RateDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column USD_Rate
+		dataType: double
+		lineageTag: 80d306e9-2b7b-451a-9253-e5a76273842e
+		summarizeBy: none
+		sourceColumn: USD_Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ExchangeKey = ```
+			Dim_ExchangeRates[RateDate]&Dim_ExchangeRates[Currency] 
+			```
+		lineageTag: cfd869fe-5140-47cd-8255-98a8a3a03ec8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_ExchangeRates = m
+		mode: import
+		source =
+				let
+				    StartDate = #date(2025, 1, 1),
+				    EndDate   = #date(2025, 10, 30),
+				
+				    Dates = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1,0,0,0)),
+				    DateTable = Table.FromList(Dates, Splitter.SplitByNothing(), {"RateDate"}),
+				
+				    Currencies = {"AUD","CAD","EUR","GBP","USD"},
+				    CurrencyTable = Table.FromList(Currencies, Splitter.SplitByNothing(), {"Currency"}),
+				
+				    CrossJoin =
+				        Table.AddColumn(DateTable, "CurrencyTable", each CurrencyTable),
+				    Expanded =
+				        Table.ExpandTableColumn(CrossJoin, "CurrencyTable", {"Currency"}, {"Currency"}),
+				
+				    AddUSD =
+				        Table.AddColumn(
+				            Expanded,
+				            "USD_Rate",
+				            each
+				                if [Currency] = "USD" then 1
+				                else
+				                    let
+				                        d = Date.ToText([RateDate], "yyyy-MM-dd"),
+				                        url = "https://api.frankfurter.app/" & d & "?from=" & [Currency] & "&to=USD",
+				                        json = Json.Document(Web.Contents(url)),
+				                        rate = json[rates][USD]
+				                    in
+				                        rate,
+				            type number
+				        ),
+				
+				    Final = Table.SelectColumns(AddUSD, {"RateDate", "Currency", "USD_Rate"})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

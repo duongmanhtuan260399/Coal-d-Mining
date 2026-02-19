@@ -1,0 +1,105 @@
+table Dim_sites
+	lineageTag: 36c2d05e-80e9-427a-bc78-98fee17e1d8f
+
+	column SiteId
+		dataType: string
+		lineageTag: 8cbae8d5-594a-4b25-a97e-79ccc959489d
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteName
+		dataType: string
+		lineageTag: 331fe3e5-a61c-4e69-96cd-b7216bc5c041
+		summarizeBy: none
+		sourceColumn: SiteName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteType
+		dataType: string
+		lineageTag: 95d4c3f8-0a0f-4c44-893b-6355812628f7
+		summarizeBy: none
+		sourceColumn: SiteType
+
+		annotation SummarizationSetBy = Automatic
+
+	column OreTypes
+		dataType: string
+		lineageTag: 50641a1c-abc3-4d03-9d7a-95a569cb5623
+		summarizeBy: none
+		sourceColumn: OreTypes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 0a73fdc8-cb1a-4588-9dac-eea890aee53d
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Dim_sites","TableItemName":"Top Produce Country","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Status
+		dataType: string
+		lineageTag: a6b29463-f4bd-4faf-b84c-52f4b2ba4d55
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Top Produce Country' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Dim_sites'[Country]),
+				"(Blank)",
+				'Dim_sites'[Country] IN {"Australia",
+					"Burkina Faso",
+					"Equatorial Guinea",
+					"Philippines",
+					"Saudi Arabia"},
+				"Top 5",
+				"Other"
+			)
+		lineageTag: d4ab6ba0-2544-436a-9a10-90386880e6d6
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Dim_sites"
+				          }
+				        },
+				        "Property": "Country"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"d","Entity":"Dim_sites"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Country"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Top 5","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Country"}}],"Values":[[{"Literal":{"Value":"'Australia'"}}],[{"Literal":{"Value":"'Burkina Faso'"}}],[{"Literal":{"Value":"'Equatorial Guinea'"}}],[{"Literal":{"Value":"'Philippines'"}}],[{"Literal":{"Value":"'Saudi Arabia'"}}]]}}},{"DisplayName":"Other"}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_sites = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "sites.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SiteId", type text}, {"SiteName", type text}, {"SiteType", type text}, {"OreTypes", type text}, {"Country", type text}, {"Status", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

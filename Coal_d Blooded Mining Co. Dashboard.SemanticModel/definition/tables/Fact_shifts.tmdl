@@ -1,0 +1,98 @@
+table Fact_shifts
+	lineageTag: 6787a658-b019-4a0d-a8a8-41982869f664
+
+	column ShiftId
+		dataType: string
+		lineageTag: d8e5e105-8c21-4558-a7fd-abbb74fa7f59
+		summarizeBy: none
+		sourceColumn: ShiftId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeId
+		dataType: string
+		lineageTag: e23b7356-8473-4799-afc2-30c3462ac7be
+		summarizeBy: none
+		sourceColumn: EmployeeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteId
+		dataType: string
+		lineageTag: 9f1fca2e-d9d2-4bf6-bdf7-04f245a4627f
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftStartedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7a3de2dd-a42a-405a-bc5b-9ff542ba35db
+		summarizeBy: none
+		sourceColumn: ShiftStartedAt
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftEndedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d64386ff-2b12-4df3-993b-2b6334427199
+		summarizeBy: none
+		sourceColumn: ShiftEndedAt
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftType
+		dataType: string
+		lineageTag: 3f0e59fa-433f-42de-84f0-a4fc6bf2c750
+		summarizeBy: none
+		sourceColumn: ShiftType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpectedProductiveHours
+		dataType: double
+		lineageTag: 31ad9b6a-b4d2-4dc0-854c-40d3caa90283
+		summarizeBy: sum
+		sourceColumn: ExpectedProductiveHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ActualProductiveHours
+		dataType: double
+		lineageTag: 028a562b-954a-4c60-b63a-5d42a9f83777
+		summarizeBy: sum
+		sourceColumn: ActualProductiveHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ShiftDurationHours
+		dataType: double
+		lineageTag: 4e295404-e461-440c-8dc1-7ce179e64bc3
+		summarizeBy: sum
+		sourceColumn: ShiftDurationHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fact_shifts = m
+		mode: import
+		queryGroup: Facts
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "shifts.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ShiftId", type text}, {"EmployeeId", type text}, {"SiteId", type text}, {"ShiftStartedAt", type datetime}, {"ShiftEndedAt", type datetime}, {"ShiftType", type text}, {"ShiftDurationHours", type number}, {"ExpectedProductiveHours", type number}, {"ActualProductiveHours", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

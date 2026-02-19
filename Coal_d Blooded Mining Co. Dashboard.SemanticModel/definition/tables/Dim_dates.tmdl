@@ -1,0 +1,426 @@
+table Dim_dates
+	lineageTag: afff6d99-3a5f-4957-817f-027b7a5a036a
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e2e02889-7207-4fab-bbf5-fc7b7adcd0b6
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: f0c23093-efaa-49f0-afca-36c3ff6b94f8
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearLabel
+		dataType: string
+		lineageTag: 3e1c02da-9f6c-49fc-8794-a76c9a3f6855
+		summarizeBy: none
+		sourceColumn: YearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearLabelShort
+		dataType: string
+		lineageTag: 1b4cb9b2-fd96-4f7e-b6bc-c5db2520b79b
+		summarizeBy: none
+		sourceColumn: YearLabelShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 127a5ba7-6657-4a2a-b3cc-9d1f77a24f20
+		summarizeBy: sum
+		sourceColumn: QuarterNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterLabel
+		dataType: string
+		lineageTag: 476fc488-c220-449b-a1b5-0ff5808891d6
+		summarizeBy: none
+		sourceColumn: QuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterLabelShort
+		dataType: string
+		lineageTag: 0d0fbf6b-7460-4d5f-acf0-da81e149e121
+		summarizeBy: none
+		sourceColumn: QuarterLabelShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterYearLabel
+		dataType: string
+		lineageTag: 56955640-1d3f-4fba-93a4-c3bbd8e8f060
+		summarizeBy: none
+		sourceColumn: QuarterYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 5529d84f-7c13-4c94-a48f-a6ae818f2f81
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: c8d6015c-95a4-44cf-9ec4-1d736c788c2b
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameShort
+		dataType: string
+		lineageTag: 32c249db-4209-4f93-af31-395d370145ee
+		summarizeBy: none
+		sourceColumn: MonthNameShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthYearLabel
+		dataType: string
+		lineageTag: e4044d6a-4162-42d8-aee4-d374dd351c3e
+		summarizeBy: none
+		sourceColumn: MonthYearLabel
+		sortByColumn: MonthKey
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStart
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b35d0042-eece-4a45-8e3e-22ea74544278
+		summarizeBy: none
+		sourceColumn: WeekStart
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WeekStartLabel
+		dataType: string
+		lineageTag: 7846591e-6d28-4d26-a165-be5c2ad5571d
+		summarizeBy: none
+		sourceColumn: WeekStartLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStartNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: ffde00ee-7647-41c0-b69f-638e578a1299
+		summarizeBy: sum
+		sourceColumn: WeekStartNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEnd
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3e8620c9-b0b7-4c57-9906-497a3932d283
+		summarizeBy: none
+		sourceColumn: WeekEnd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WeekEndLabel
+		dataType: string
+		lineageTag: 7ccceb91-0302-465d-ad0f-f56f97b29223
+		summarizeBy: none
+		sourceColumn: WeekEndLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEndNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 3af277a4-0fcc-4c67-a57b-64628252abf1
+		summarizeBy: sum
+		sourceColumn: WeekEndNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfYearNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: caf96837-c81e-4fad-896c-e62385612397
+		summarizeBy: sum
+		sourceColumn: DayOfYearNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfMonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a606769-cc34-45d6-a672-ad602c7a622a
+		summarizeBy: sum
+		sourceColumn: DayOfMonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayNumberMonSun
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ab1a0f0-2a46-4b42-b23c-cde57a848555
+		summarizeBy: sum
+		sourceColumn: WeekdayNumberMonSun
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayNumberSunMon
+		dataType: int64
+		formatString: 0
+		lineageTag: 65417f78-d037-42db-91cc-9caff8e3b1c2
+		summarizeBy: sum
+		sourceColumn: WeekdayNumberSunMon
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateLabel
+		dataType: string
+		lineageTag: eda0fbb3-3652-47ea-9c53-3d2744b31f46
+		summarizeBy: none
+		sourceColumn: DateLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayName
+		dataType: string
+		lineageTag: 5763bd1c-f5c0-4867-99ac-fa853486ac81
+		summarizeBy: none
+		sourceColumn: WeekdayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayNameShort
+		dataType: string
+		lineageTag: 9cb5647a-34fd-46c5-bc32-6e7a37deeefd
+		summarizeBy: none
+		sourceColumn: WeekdayNameShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinYear
+		dataType: int64
+		formatString: 0
+		lineageTag: fb7fff21-fa30-4f97-a439-22923bb4a4b8
+		summarizeBy: sum
+		sourceColumn: FinYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinYearLabel
+		dataType: string
+		lineageTag: 0129bc6c-501d-4f15-9051-10283c27b490
+		summarizeBy: none
+		sourceColumn: FinYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinYearLabelShort
+		dataType: string
+		lineageTag: a7ed4a38-b5bc-465c-b661-200198a86a98
+		summarizeBy: none
+		sourceColumn: FinYearLabelShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinQuarterNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d561d40-393d-4795-b2a9-c65072e6be89
+		summarizeBy: sum
+		sourceColumn: FinQuarterNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinQuarterLabel
+		dataType: string
+		lineageTag: 992d08c6-9eb9-459f-b8a5-8e254ee46076
+		summarizeBy: none
+		sourceColumn: FinQuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinQuarterLabelShort
+		dataType: string
+		lineageTag: dfbe428c-5976-480c-9e8e-15c8e69a2d46
+		summarizeBy: none
+		sourceColumn: FinQuarterLabelShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinQuarterYearLabel
+		dataType: string
+		lineageTag: b45ce334-07ed-4af8-ab27-ac14f0362516
+		summarizeBy: none
+		sourceColumn: FinQuarterYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinMonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 94237098-5368-4fd4-a6a2-a5b32f9ba4b6
+		summarizeBy: sum
+		sourceColumn: FinMonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterKey
+		dataType: string
+		lineageTag: 537b2af0-7984-40a7-ade0-4062265a66bc
+		summarizeBy: none
+		sourceColumn: QuarterKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthKey
+		dataType: string
+		lineageTag: 9304f0b7-eee6-428e-9e37-6ebc71215c7f
+		summarizeBy: none
+		sourceColumn: MonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStartKey
+		dataType: string
+		lineageTag: bbd3643f-81f1-4dce-ad93-e38e3ff6e53f
+		summarizeBy: none
+		sourceColumn: WeekStartKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEndKey
+		dataType: string
+		lineageTag: ce90164e-1a82-4e60-8282-902371475fca
+		summarizeBy: none
+		sourceColumn: WeekEndKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: string
+		lineageTag: 8bb61d8c-913c-4c0e-b285-85b1afdb902f
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinQuarterKey
+		dataType: string
+		lineageTag: bee25bbd-f69e-4e7e-8411-0d85e66304ea
+		summarizeBy: none
+		sourceColumn: FinQuarterKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinMonthKey
+		dataType: string
+		lineageTag: 983b6ab3-cd39-4870-8a76-90e8bd75f606
+		summarizeBy: none
+		sourceColumn: FinMonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentYear
+		dataType: string
+		lineageTag: 369ec1a7-e94b-4ad0-97d7-8880bff0b253
+		summarizeBy: none
+		sourceColumn: IsCurrentYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentMonth
+		dataType: string
+		lineageTag: dc0e3573-75ce-4ac3-b018-d4537c87b5dd
+		summarizeBy: none
+		sourceColumn: IsCurrentMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentWeek
+		dataType: string
+		lineageTag: 658586db-0b80-490a-8825-d31542b3c6e9
+		summarizeBy: none
+		sourceColumn: IsCurrentWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentFinYear
+		dataType: string
+		lineageTag: 07cf94ad-cdc7-49c8-8632-389c73caace1
+		summarizeBy: none
+		sourceColumn: IsCurrentFinYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: string
+		lineageTag: e80eb2ef-6aba-434d-9966-c0783ea623df
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsToday
+		dataType: string
+		lineageTag: 79e0a200-83ed-419c-8d72-41b663382c47
+		summarizeBy: none
+		sourceColumn: IsToday
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsTomorrow
+		dataType: string
+		lineageTag: 22c0bed7-e7b9-4546-95cd-1a4bcc777f72
+		summarizeBy: none
+		sourceColumn: IsTomorrow
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsYesterday
+		dataType: string
+		lineageTag: 2b162c76-76b9-47fc-8754-d8c8768cbc4d
+		summarizeBy: none
+		sourceColumn: IsYesterday
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_dates = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Dim_times,
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Date", "Year", "YearLabel", "YearLabelShort", "QuarterNumber", "QuarterLabel", "QuarterLabelShort", "QuarterYearLabel", "MonthNumber", "MonthName", "MonthNameShort", "MonthYearLabel", "WeekStart", "WeekStartLabel", "WeekStartNumber", "WeekEnd", "WeekEndLabel", "WeekEndNumber", "DayOfYearNumber", "DayOfMonthNumber", "WeekdayNumberMonSun", "WeekdayNumberSunMon", "DateLabel", "WeekdayName", "WeekdayNameShort", "FinYear", "FinYearLabel", "FinYearLabelShort", "FinQuarterNumber", "FinQuarterLabel", "FinQuarterLabelShort", "FinQuarterYearLabel", "FinMonthNumber", "QuarterKey", "MonthKey", "WeekStartKey", "WeekEndKey", "DateKey", "FinQuarterKey", "FinMonthKey", "IsCurrentYear", "IsCurrentMonth", "IsCurrentWeek", "IsCurrentFinYear", "IsWeekend", "IsToday", "IsTomorrow", "IsYesterday"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

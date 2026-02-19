@@ -1,0 +1,104 @@
+table Dim_employees
+	lineageTag: 218c58b5-8dad-4036-9403-9e770898ff75
+
+	column EmployeeId
+		dataType: string
+		lineageTag: 0ba3f28c-b616-4372-b6c2-a93a8710ea02
+		summarizeBy: none
+		sourceColumn: EmployeeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 2ae76243-8094-4930-8d69-edf7fae9b02e
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: 7670715b-e18a-4126-a58a-ab0d787cc566
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: 72e5f4a9-2680-4db0-96f2-da1d72245c20
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column PhoneNumber
+		dataType: string
+		lineageTag: e75935c7-816c-443c-bcdf-3a35f9918dda
+		summarizeBy: none
+		sourceColumn: PhoneNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 09874852-5e82-44b7-94d5-6176707e600c
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 244ecb82-b48e-4aca-89fd-8adf6f6a5c73
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Department
+		dataType: string
+		lineageTag: 9051415f-dc51-41c9-9725-f3ad1309a9dc
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Job
+		dataType: string
+		lineageTag: 3de95cbc-9cc1-466a-ba7a-0b94e9ce6f7c
+		summarizeBy: none
+		sourceColumn: Job
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullName
+		dataType: string
+		lineageTag: d9dc7180-51d0-43f8-83f4-4a6d68b7b40c
+		summarizeBy: none
+		sourceColumn: FullName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_employees = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "employees.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EmployeeId", type text}, {"FirstName", type text}, {"LastName", type text}, {"FullName", type text}, {"Email", type text}, {"PhoneNumber", type text}, {"StartDate", type date}, {"EndDate", type date}, {"Department", type text}, {"Job", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

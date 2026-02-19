@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Coal_d Blooded Mining Co. Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c64f8009-40cf-4e9e-b38c-2ab9f6598133"
+  }
+}

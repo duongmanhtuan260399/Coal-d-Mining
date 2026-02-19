@@ -1,0 +1,18 @@
+expression FolderPath = "C:\Users\301591K\OneDrive - Curtin\Desktop\Coal_d Blooded Mining Co\Data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: c24044bf-d0ec-48d3-8cc3-2bc47dc3ecf4
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FolderPathCleaned =
+		let
+		    Source = if Text.End(FolderPath, 1) <> "\" then FolderPath & "\" else FolderPath
+		in
+		    Source
+	lineageTag: 11ebacfd-64b9-4e2d-a081-c4727827d576
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

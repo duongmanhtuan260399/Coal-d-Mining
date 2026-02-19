@@ -1,0 +1,50 @@
+table Dim_clients
+	lineageTag: 247bb3d9-de55-4160-8854-3140752acb1a
+
+	column ClientId
+		dataType: string
+		lineageTag: 7bdab537-cfd6-46c6-8db8-c6690be1ce19
+		summarizeBy: none
+		sourceColumn: ClientId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientName
+		dataType: string
+		lineageTag: 31876ae5-04b6-495b-900a-925d0cf8aad1
+		summarizeBy: none
+		sourceColumn: ClientName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Industry
+		dataType: string
+		lineageTag: dfcfc3c8-ed8b-4eb1-852f-650577804959
+		summarizeBy: none
+		sourceColumn: Industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 417e34bc-91e2-43c7-8b08-e8db2c56c4f8
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_clients = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(FolderPathCleaned & "clients.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ClientId", type text}, {"ClientName", type text}, {"Industry", type text}, {"Country", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

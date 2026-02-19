@@ -1,0 +1,36 @@
+model Model
+	culture: en-AU
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-AU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Dimensions
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Facts
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Dim_clients","Dim_dates","Dim_employees","Dim_equipment","Dim_sites","Dim_times","Fact_invoices","Fact_ore_volumes","Fact_shifts","FolderPath","FolderPathCleaned","Dim_ExchangeRates","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_clients
+ref table Dim_employees
+ref table Dim_equipment
+ref table Fact_invoices
+ref table Fact_ore_volumes
+ref table Fact_shifts
+ref table Dim_sites
+ref table Dim_dates
+ref table Dim_times
+ref table Dim_ExchangeRates
+ref table _Measures
+
+ref cultureInfo en-AU
+

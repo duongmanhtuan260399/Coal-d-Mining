@@ -1,0 +1,25 @@
+cultureInfo en-AU
+
+	linguisticMetadata =
+			{
+			  "Version": "1.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "fact_ore_volumes.month": {
+			      "Binding": {
+			        "ConceptualEntity": "Fact_ore_volumes",
+			        "ConceptualProperty": "Month"
+			      },
+			      "State": "Generated"
+			    },
+			    "dim_dates.monthnumber": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_dates",
+			        "ConceptualProperty": "MonthNumber"
+			      },
+			      "State": "Generated"
+			    }
+			  }
+			}
+		contentType: json
+
